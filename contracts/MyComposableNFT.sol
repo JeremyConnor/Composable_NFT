@@ -171,7 +171,9 @@ contract MyComposableNFT is ERC721("MyComposable", "MYC") {
 
         while(length(q) > 0) {
             uint256 _node = pop(q);
-            listOfNFT[i] = _node;
+            if(_root != _node) {
+                listOfNFT[i] = _node;
+            }
             i++;
 
             uint256 len = containerNFTtoWrappedNFT[_node].length;
@@ -186,7 +188,8 @@ contract MyComposableNFT is ERC721("MyComposable", "MYC") {
     }
 
     // burns the NFT and transfers the balance of NFT to the owner
-    // this will also burn all the wrapped NFTs within this NFT
+    // this will decompose all the wrapped NFTs within this NFT such that
+    // each of the wrapped NFT now becomes a singular NFT without any container or wrapped NFT.
     function burnNFT(uint256 _tokenId) external {
         require(_tokenId > 0, "Token ID must be greater than 0");
 
@@ -197,15 +200,21 @@ contract MyComposableNFT is ERC721("MyComposable", "MYC") {
 
         // delete the content of mapping corresponding to _tokenId
         delete NFTidToOwner[_tokenId];
+        
+        _burn(_tokenId);
 
+        // transfer the ERC20s from contract address to user's address
+        myToken.transferFunds(_tokenId, msg.sender);
+
+        // updating each of the wrapped NFT as a singular NFT
         for(uint256 i=0; i<listOfNFT.length; i++) {
-            _burn(_tokenId);
-
-            // transfer the ERC20s from contract address to user's address
-            myToken.transferFunds(_tokenId, msg.sender);
-
-            delete wrappedNFTtoContainerNFT[i];
             delete containerNFTtoWrappedNFT[i];
+            
+            // updating to 0, because all these NFTs do not contain any container now
+            wrappedNFTtoContainerNFT[i] = 0;
+
+            // updating owner of each of the NFTs
+            NFTidToOwner[i] = msg.sender;
         }
         
     }
