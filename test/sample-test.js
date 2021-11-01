@@ -80,15 +80,5 @@ describe("MyERC20.sol", function () {
     await myComposableNFT.mint(owner.address, 1);
     console.log("Minted");
 
-    await myComposableNFT.addFunds(1, 100);
-    console.log("Funds added");
-
-    await myComposableNFT.transferNFT(1, addr1);
-
-    await myComposableNFT.burnNFT(1);
-
-    console.log("Balance of owner : ", owner.address);
-    console.log("Balance of addr1 : ", addr1);
-
   });
 });
