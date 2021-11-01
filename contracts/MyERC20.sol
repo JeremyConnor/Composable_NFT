@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 contract MyERC20 is ERC20("MyERC20", "MYE") {
 
     // mapping NFT id to it's ERC20 balance
-    mapping(uint => uint) balanceOfNFT;
+    mapping(uint256 => uint256) balanceOfNFT;
 
     event updatedBalance(uint256 _tokenId, uint256 _amount);
 
@@ -23,5 +23,9 @@ contract MyERC20 is ERC20("MyERC20", "MYE") {
 
     function transferFunds(uint256 _tokenId, address _owner) external {
         _transfer(address(this), _owner, _tokenId);
+    }
+
+    function retrieveBalance(uint256 _tokenId) external view returns (uint256) {
+        return balanceOfNFT[_tokenId];
     }
 }

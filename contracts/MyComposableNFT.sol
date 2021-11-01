@@ -35,6 +35,11 @@ contract MyComposableNFT is ERC721("MyComposable", "MYC") {
         myToken.mintForNFT(_tokenId, _amount);
     }
 
+    // retreive ERC-20 Balance of NFT
+    function getNFTBalance(uint256 _tokenId) external view returns (uint256) {
+        return myToken.retrieveBalance(_tokenId);
+    }
+
     // transfers `_tokenId` from `msg.sender` to `_to`
     function transferNFT(uint256 _tokenId, address _to) external {
         // validating whether the tokenId matches the owner
