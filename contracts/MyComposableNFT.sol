@@ -8,12 +8,18 @@ import "./MyERC20.sol";
 // TODO: layer in composability for ERC20 tokens based on EIP-998 (Top Down ERC20 specifically)
 contract MyComposableNFT is ERC721("MyComposable", "MYC") {
 
+    // instance of MyERC20 contract
     MyERC20 myToken;
+
+    // can reduce from 256 to lower size.
+    uint256 set_contract_address = 0;
 
     // mapping from NFT id to Owner
     mapping(uint256 => address) NFTidToOwner;
 
     function myERC20(address _contract) public {
+        // this makes the myERC20 function to be called only once.
+        require(set_contract_address == 0, "Contract address already set");
         myToken = MyERC20(_contract);
     }
 

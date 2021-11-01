@@ -15,13 +15,13 @@ contract MyERC20 is ERC20("MyERC20", "MYE") {
         _mint(_recipient, _amount);
     }
 
-    function mintForNFT(uint256 _tokenId, uint256 _amount) internal {
+    function mintForNFT(uint256 _tokenId, uint256 _amount) external {
         _mint(address(this), _amount);
         balanceOfNFT[_tokenId] += _amount;
         emit updatedBalance(_tokenId, _amount);
     }
 
-    function transferFunds(uint256 _tokenId, address _owner) internal {
+    function transferFunds(uint256 _tokenId, address _owner) external {
         _transfer(address(this), _owner, _tokenId);
     }
 }
