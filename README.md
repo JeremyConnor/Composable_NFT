@@ -19,7 +19,7 @@ as an individual NFT without loosing their property.
 5) User can call `getContainerNFT` function to get the container of a particular wrapped NFT.
 6) User can call `getOwnerOfNFT` function to get the owner of any NFT.
 3) User can call `transferNFT` function to transfer NFT to other eth addresses.
-4) User can call `burn` function to burn the container NFT and redeem all the ERC-20 and constituent ERC-721 tokens to his own eth address.
+4) User can call `burnNFT` function to burn the container NFT and redeem all the ERC-20 and constituent ERC-721 tokens to his own eth address.
 
 ## Approach
 From the idea of NFT being stored inside an NFT, the first thing that comes to my mind is a tree.
