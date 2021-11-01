@@ -6,25 +6,31 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "./MyERC20.sol";
 
 // TODO: layer in composability for ERC20 tokens based on EIP-998 (Top Down ERC20 specifically)
-contract MyComposableNFT is ERC721("MyComposable", "MYC"), MyERC20 {
+contract MyComposableNFT is ERC721("MyComposable", "MYC") {
+
+    MyERC20 myToken;
 
     // mapping from NFT id to Owner
-    mapping(uint => address) NFTidToOwner;
+    mapping(uint256 => address) NFTidToOwner;
+
+    function myERC20(address _contract) public {
+        myToken = MyERC20(_contract);
+    }
 
     function mint(address _recipient, uint256 _tokenId) external {
         _mint(_recipient, _tokenId);
     }
 
     // addFunds function allows owner of NFT to add ERC20s to his NFT
-    function addFunds(uint _tokenId, uint _amount) external {
+    function addFunds(uint256 _tokenId, uint256 _amount) external {
         // validating whether the tokenId matches the owner
         require(NFTidToOwner[_tokenId] == msg.sender, "Not the owner of the NFT");
 
-        mintForNFT(_tokenId, _amount);
+        myToken.mintForNFT(_tokenId, _amount);
     }
 
     // transfers `_tokenId` from `msg.sender` to `_to`
-    function transferNFT(uint _tokenId, address _to) external {
+    function transferNFT(uint256 _tokenId, address _to) external {
         // validating whether the tokenId matches the owner
         require(NFTidToOwner[_tokenId] == msg.sender, "Not the owner of the NFT");
 
@@ -36,7 +42,7 @@ contract MyComposableNFT is ERC721("MyComposable", "MYC"), MyERC20 {
     }
 
     // burns the NFT and transfers the balance of NFT to the owner
-    function burnNFT(uint _tokenId) external {
+    function burnNFT(uint256 _tokenId) external {
         // validating whether the tokenId matches the owner
         require(NFTidToOwner[_tokenId] == msg.sender, "Not the owner of the NFT");
 
@@ -46,6 +52,6 @@ contract MyComposableNFT is ERC721("MyComposable", "MYC"), MyERC20 {
         delete NFTidToOwner[_tokenId];
 
         // transfer the ERC20s from contract address to user's address
-        transferFunds(_tokenId, msg.sender);
+        myToken.transferFunds(_tokenId, msg.sender);
     }
 }
