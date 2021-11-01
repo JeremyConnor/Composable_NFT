@@ -21,6 +21,7 @@ contract MyComposableNFT is ERC721("MyComposable", "MYC") {
         // this makes the myERC20 function to be called only once.
         require(set_contract_address == 0, "Contract address already set");
         myToken = MyERC20(_contract);
+        set_contract_address = 1;
     }
 
     function mint(address _recipient, uint256 _tokenId) external {
