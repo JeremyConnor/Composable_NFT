@@ -2,13 +2,9 @@ pragma solidity ^0.8.0;
 
 // SPDX-License-Identifier: MIT
 
-import "./SnackToken.sol";
 import "./MyComposableNFT.sol";
 
 contract ConferenceTicket {
-
-    // instance of Snack Token contract
-    SnackToken snackToken;
 
     // instance of MyComposableNFT contract
     MyComposableNFT myComposableNFT;
@@ -18,20 +14,12 @@ contract ConferenceTicket {
     uint256 members = 1;
 
     // can reduce from 256 to lower size.
-    uint256 set_snack_contract_address = 0;
     uint256 set_composable_contract_address = 0;
 
     mapping(address => uint256) ethBalance;
 
-    function deploySnackToken(address _contract) public {
-        // this makes the snackToken function to be called only once.
-        require(set_snack_contract_address == 0, "Contract address already set");
-        snackToken = SnackToken(_contract);
-        set_snack_contract_address = 1;
-    }
-
     function deployComposableNFT(address _contract) public {
-        // this makes the snackToken function to be called only once.
+        // this makes the deployComposableNFT function to be called only once.
         require(set_composable_contract_address == 0, "Contract address already set");
         myComposableNFT = MyComposableNFT(_contract);
         set_composable_contract_address = 1;

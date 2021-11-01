@@ -44,7 +44,7 @@ contract MyComposableNFT is ERC721("MyComposable", "MYC") {
     SnackToken myToken;
 
     // can reduce from 256 to lower size.
-    uint256 set_contract_address = 0;
+    uint256 set_snack_contract_address = 0;
 
     // mapping from NFT id to Owner
     mapping(uint256 => address) NFTidToOwner;
@@ -61,10 +61,11 @@ contract MyComposableNFT is ERC721("MyComposable", "MYC") {
     // mapping from NFT to boolean, to mark the container NFTs
     mapping(uint256 => bool) isContainerNFT;
 
-    function myERC20(address _contract) public {
-        // this makes the myERC20 function to be called only once.
-        require(set_contract_address == 0, "Contract address already set");
+    function deploySnackToken(address _contract) public {
+        // this makes the snackToken function to be called only once.
+        require(set_snack_contract_address == 0, "Contract address already set");
         myToken = SnackToken(_contract);
+        set_snack_contract_address = 1;
     }
 
     // tokenId must be greater than 0;
