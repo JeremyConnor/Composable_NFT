@@ -9,7 +9,7 @@ contract MyERC20 is ERC20("MyERC20", "MYE") {
     // mapping NFT id to it's ERC20 balance
     mapping(uint => uint) balanceOfNFT;
 
-    event updatedBalance(uint _tokenId, uint_amount);
+    event updatedBalance(uint256 _tokenId, uint256 _amount);
 
     function mint(address _recipient, uint256 _amount) external {
         _mint(_recipient, _amount);
