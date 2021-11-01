@@ -4,8 +4,9 @@ This project is an attempt to create composable NFTs. Composable NFTs are the ER
 ## Using the MyComposableNFT
 1) User can call `mint` function to mint a new composable NFT.
 2) User can call `addFunds` function to add balance to the NFT.
-3) User can call `transferNFT` function to transfer NFT to other eth addresses.
-4) User can call `burn` function to burn the NFT and redeem all the ERC-20 tokens to his own eth address.
+3) User can call `getNFTBalance` function to retreive balance of the NFT.
+4) User can call `transferNFT` function to transfer NFT to other eth addresses.
+5) User can call `burnNFT` function to burn the NFT and redeem all the ERC-20 tokens to his own eth address.
 
 ## Approach
 ### First thought
