@@ -44,5 +44,3 @@ What could be the other ways to store the ERC-20 token?
 * The NFT's balance won't be fixed anymore. If the user spends MyERC20 tokens, then the NFT's balance will change as well. One method to somewhat solve this issue is, "Before transferring NFT, the user's eth address is checked. If it contains the same or more MyERC20 as the initial balance of NFT, then fine, otherwise, the user will be asked to buy some MyERC20 tokens to compensate the differnece."
 2) Storing in an escrow sort of smart contract :
 * This is quite possible, where we will have to describe the trigger events for the add and withdraw method of escrow. The escrow might need to be modified a bit.
-
-NOTE : There can be more advancements made to the project idea and the code as well. But, in less than a span of 2 days, I devoted alot of time exploring the various scenarios, shortcomings and what the future of the project could look like. The code and the project have been built without using any external resources. I knew about the project being related to EIP-998, but I didn't read it, as I wanted to develop the crude idea that I got while reading the project title and it's requirements.
